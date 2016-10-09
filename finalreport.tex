@@ -1,0 +1,61 @@
+\documentclass{report}
+
+\title{Inside-Out Tracking for the Brave \\ \small{What if you could have HTC Vive quality VR with just your phone?}}
+\author{Solaris Nite \& Bryan Prather-Huff}
+\date{October 9-10, 2016}
+
+\begin{document}
+	\maketitle
+	
+	\section*{Background}
+	Virtual Reality (VR) development has accelerated rapidly within the past decade. From the first iterations of Google Glass and the Oculus Rift, we have seen VR grow into an industry increasingly being consumed by the mass populous. As the demand rises for quality VR experiences, the question becomes "How do we move away from clunky development kits to simple wearables that can transition smoothly between VR and daily device use?" As the computational power of smartphones and other personal computing devices increases, along with the rise of a fantastic array of sensors and feedback methods, we believe it is plausible to provide great VR experiences using consumer hardware.
+	
+	\paragraph*{HTC Vive}
+	The HTC Vive has been one of the most successful recent developments in VR systems, in terms of adoption and application availability. Novel features of the Vive include hand controllers for VR interaction and motion tracking, along side the head tracking pioneered by the Oculus Rift. The Vive accomplishes it's amazing tracking abilities by means of a pair of sensors enclosing a rough rectangle in which the players hand and head movements are recorded. The Vive also requires the player's headset to by tethered to a top-of-the-line PC to provide the fantastic rendering a modern VR system can produce.
+	
+	\paragraph*{Google VR (\textit{formally Google Cardboard})}
+	Google Cardboard was one of the first consumer accessible VR experiences widely available at a price point reasonable to every individual with a smartphone. The important part to it's success was the code and resources Google opened to the public. Google provided a library to developers which allowed them to take advantage of the advances in smartphone accelerometer technology and provide head tracking with a simple headset frame that your smartphone could be inserted into. The flexibility of this system is amazing considering the advances in VR tech from the launch of the Oculus Kickstarter in 2012 to the release of the Cardboard in 2014.
+	
+	\paragraph*{Google Tango (\textit{formally Project Tango})}
+	Google Tango is a computer vision project enabling smartphones and tablets to interpret and map the world around them from the first perceptive without the need of external GPS or beacons. Tango is an upcoming project with the first consumer device to being the Lenovo 'Phab 2 Pro'. Google released developer toolkits in the form of a discontinued phone and the 7-inch 'Yellowstone' tablet. Based on machine learning and advances in infrared and optical data collection and mapping, Tango enables devices to track translational movement, depth of field, and perform area learning operations to create valid digital representations of the real world in terms of objects and space.
+	
+	\paragraph*{Unity Engine}
+	Unity is an industrial-grade game design framework with massive developer contributions and VR development capabilities. Available for free with a community license, Unity supports game development on virtually every platform on the market, from PCs to personal devices to gaming consoles. Unity is supported by all the technologies listed above and allows for advanced networking design with robust client-server data transactions.
+	
+	\section*{Enter Inside-Out Tracking}
+	Given the inherent adoption issues with current VR systems, like the HTC Vive, which requires very technical and intimate handling to function properly along side a high cost of entry; we wanted to design a VR system using reasonably accessible consumer parts. We also wanted to reduce the equipment load currently required by these systems, namely the external sensors needed to accurately track translational motion and the physical wire tether needed for rendering capabilities. By moving translational (motion) tracking to the perspective of the player, we reduce the equipment needed for an exciting VR experience while completely removing the physical space limitations that beacon tracking designs rely on. This inversion of the tracking system is the most important feature of our design.  Our solution is bold and simple, requiring much less in terms of cost and equipment than current VR systems while retaining the smoothness and immersive experience of much more developed VR platforms.
+	
+	The threshold for reasonable latency in VR is approximately 20 - 30ms. The first iteration of Tango had a latency of 80ms, but has improved to around 40ms. The HTC Vive has approximately 30-40ms of latency. Measuring latency is an extremely tough thing to do without specialized equipment, so we are unable to provide a true reference  on the latency of our system, but given the fact that we are using our own wireless infrastructure to accomplish communication between the devices (the latency of which is around 25ms), we estimate our latency through the whole system is around 60-100ms of latency. Again, we provide the demo both in the Vive and on our platform to illustrate the difference of feeling between the two systems.
+	
+	\subsection*{Hardware}
+	\begin{itemize}
+		\item[\textit{JoyGeek} 3-D Headset] A basic plastic frame for holding a smartphone to utilize Google VR head tracking enabled applications. Available for \~\$20 on Amazon.
+		\item[iPhone 6] While any smartphone would have worked, we decided to use one of our own for the project. As will become clear later, the choice of modern smartphone is actually irrelevant to the operation of the system, but and Android based device with a larger screen would have contributed to the speed of our development process. Available for \~\$350 from various retailers.
+		\item[Google Tango Development Kit] Codenamed 'Yellowstone', it's 7-inch tablet with an Nvidia Tegra processor, specifically built for Google's Tango. Outside of typical smartphone/tablet features, the tablet also includes the novel infrared and optical sensors required to perform the environmental measurements Tango is designed to utilize. Available from Google for \~\$550.
+		\item[HTC Vive] This is the system we are attempting to replace. We include it in the hardware list, because our demo is designed to run on both our VR system and the Vive such as to demonstrate the similarities and differences of VR experience. Available from HTC 
+	\end{itemize}
+	
+	\subsection*{Software}
+	\begin{itemize}
+		\item[Unity Engine] Already discussed above, Unity provides the development environment and bridge for the various technologies we are attempting to stack.
+		\item[Google VR Library] The Google VR library provides us the ability to perform accurate head tracking with accelerometers built into personal devices. We are using the C\# version specifically oriented toward Unity development.
+		\item[Google Tango Library] The Google Tango library provides us the interface to Tango's motion tracking capabilities, unlocking the potential of the 'Yellowstone' tablet as a fully featured sensor array. Again, we are using the C\# version designed for Unity development.
+	\end{itemize}
+	
+	\subsection*{Design Details}
+		By utilizing our software and hardware stack, we are able to reduce the needs of a fully spatially VR system to a simple headset. We retrofitted the Tango tablet to the outside of a Cardboard based VR headset and secured it using Velcro, taking special care to not obstruct the sensor array, while still being secure enough to maintain relative orientation to both the smartphone enclosed in the headset and the wearer themselves.
+		
+		The software stack utilizes Unity's client-server multiplayer functionality to maintain a connection between the smartphone and the tablet, allowing sensor data to be transferred quickly and robustly over a wireless network. The smartphone acts as a server and performs rendering action along side head tracking to maintain view orientation with the wearer. The tablet performs complex motion tracking operations using it's sensor array to interpret translational movement in the world space and rapidly reporting changes to the smartphone with minimal latency.
+		
+		We designed a demo implementation of the system meant to run both on the Vive and our Inside-Out Tracking platform. The intention is to demonstrate the similarity of experience between the Vive and our solution, while outlining the significant improvements we have made in terms of movement capability and equipment reduction.
+		
+		\section*{Challenges}
+		We were forced to improvise our harnessing solution for attaching the tablet to the wearer. This actually ended being less difficult than initially anticipated, but, because of the weight distribution, the headset feels somewhat awkward to the wearer.
+		
+		Our solution utilizes two different devices, with similar technological capabilities. The main reason for this is because neither device independently has the ability to process and analyze the sensor data fast enough to give a smooth and non-sickening VR experience like more high end systems. By separating concerns and using clever networking techniques we were able to come up with a vastly superior experience than either device could provide on it's own.
+		
+		Another issue was our choice of smartphone. Because Google's Tango is currently available to us only on the Android based 'Yellowstone' tablet, and our smartphone is IOS based, we were forced to switch build environments with every full build cycle in development. Because of the asset differences between the two environments, that switch added a huge delay to our development process. Having a larger, Android-based phone to more fully utilize the space in the headset and reduce the build time would have made the process more efficient.
+		
+		\section*{Future Development}
+		We would like to get our hands on the new Tango based Lenovo 'Phab 2 Pro' and attempt to roll the project into a single device. As technology and processing power improves, we believe that inside-out VR tracking will become one of the standard features on many smart devices. We would also like to see our system work with hand controllers of some sort to replicate the interaction experience of systems like the Vive. 
+\end{document}
